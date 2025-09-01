@@ -5,18 +5,19 @@ import FeedbackBar from "./components/FeedbackBar/FeedbackBar";
 import LocationBar from "./components/LocationBar/LocationBar";
 import LocationCard from "./components/LocationCard/LocationCard";
 import Weather from "./components/Weather/Weather";
-import Loading from "./components/Loading/Loading";
 
 function App() {
   return (
     <>
-      <Header />
-      <SearchBar />
-      <FeedbackBar />
-      <LocationBar>
-        <LocationCard />
-      </LocationBar>
-      <Weather></Weather>
+      <div className="app-container">
+        <Header />
+        <SearchBar />
+        <FeedbackBar />
+        <LocationBar>
+          <LocationCard />
+        </LocationBar>
+        <Weather></Weather>
+      </div>
     </>
   );
 }
