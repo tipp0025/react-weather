@@ -1,0 +1,31 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-top: 0.1rem solid var(--header-border);
+  border-bottom: 0.1rem solid var(--header-border);
+  background: var(--primary-bg);
+  color: var(--primary-fg);
+}
+
+.title {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.themeToggle {
+  border: 1px solid transparent;
+  background: transparent;
+  padding: 0.4rem 0.6rem;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--primary-fg);
+}
+.themeToggle:hover,
+.themeToggle:focus-visible {
+  border-color: var(--brand-accent);
+  outline: none;
+  border-radius: 0.5rem;
+}

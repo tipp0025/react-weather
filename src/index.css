@@ -1,5 +1,5 @@
 :root {
-  /* Themes */
+  /* Default Themes */
   --primary-dark: #000814;
   --primary-med: #001d3d;
   --primary-light: #003566;
@@ -10,7 +10,7 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color-scheme: dark; /* You control theme */
+  color-scheme: dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: var(--primary-dark);
 
@@ -18,6 +18,28 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+:root[data-theme="light"] {
+  --primary-bg: #ffffff;
+  --primary-fg: #213547;
+  --brand-accent: var(--primary-light);
+  --header-border: var(--primary-light);
+
+  color-scheme: light;
+  background-color: var(--primary-bg);
+  color: var(--primary-fg);
+}
+
+:root[data-theme="dark"] {
+  --primary-bg: var(--primary-dark);
+  --primary-fg: rgba(255, 255, 255, 0.87);
+  --brand-accent: var(--secondary-light);
+  --header-border: var(--secondary-light);
+
+  color-scheme: dark;
+  background-color: var(--primary-bg);
+  color: var(--primary-fg);
 }
 
 *,
