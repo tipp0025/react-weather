@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { useTheme } from "./hooks/useTheme";
+import { useWeatherData } from "./hooks/useWeatherData";
 import "./App.css";
 import Header from "./components/Header/Header";
 import SearchBar from "./components/SearchBar/SearchBar";
@@ -9,52 +9,31 @@ import Weather from "./components/Weather/Weather";
 
 function App() {
   const { theme, toggleTheme } = useTheme();
-  const [errorMessage, setErrorMessage] = useState("");
-  const [weatherData, setWeatherData] = useState([]);
-  const [selectedWeather, setSelectedWeather] = useState(null);
 
-  const onSearch = (result) => {
-    if (result.error) {
-      setErrorMessage(result.error);
-    } else if (weatherData.length >= 5) {
-      setErrorMessage("You cannot add more than five locations.");
-    } else {
-      setWeatherData([...weatherData, result]);
-      setErrorMessage("");
-    }
-  };
-
-  const clearErrorMessage = () => {
-    setErrorMessage("");
-  };
-
-  const removeWeatherDataItem = (index) => {
-    setWeatherData((currentData) => currentData.filter((_, i) => i !== index));
-  };
-
-  const handleCardClick = (data) => {
-    setSelectedWeather(data);
-  };
+  const {
+    errorMessage,
+    weatherData,
+    selectedWeather,
+    addFromSearchResult,
+    clearErrorMessage,
+    removeByIndex,
+    selectWeather,
+  } = useWeatherData();
 
   return (
-    <>
-      <div className="app-container">
-        <Header theme={theme} onToggleTheme={toggleTheme} />
-        <main className="main">
-          <SearchBar onSearch={onSearch} />
-          <FeedbackBar
-            message={errorMessage}
-            clearMessage={clearErrorMessage}
-          />
-          <LocationBar
-            initialWeatherData={weatherData}
-            onItemRemove={removeWeatherDataItem}
-            onCardClick={handleCardClick}
-          />
-          <Weather data={selectedWeather} />
-        </main>
-      </div>
-    </>
+    <div className="app-container">
+      <Header theme={theme} onToggleTheme={toggleTheme} />
+      <main className="main">
+        <SearchBar onSearch={addFromSearchResult} />
+        <FeedbackBar message={errorMessage} clearMessage={clearErrorMessage} />
+        <LocationBar
+          initialWeatherData={weatherData}
+          onItemRemove={removeByIndex}
+          onCardClick={selectWeather}
+        />
+        <Weather data={selectedWeather} />
+      </main>
+    </div>
   );
 }
 
