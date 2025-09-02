@@ -1,0 +1,9 @@
+.feedback-bar {
+  display: inline-block;
+  width: 100%;
+  background-color: darkred;
+  color: white;
+  text-align: center;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
