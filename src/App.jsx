@@ -11,6 +11,7 @@ import Weather from "./components/Weather/Weather";
 function App() {
   const { theme, toggleTheme } = useTheme();
   const [errorMessage, setErrorMessage] = useState("");
+  const [weatherData, setWeatherData] = useState([]);
 
   const onSearch = (result) => {
     if (result.error) {
@@ -22,8 +23,13 @@ function App() {
       setErrorMessage("");
     }
   };
+
   const clearErrorMessage = () => {
     setErrorMessage("");
+  };
+
+  const removeWeatherDataItem = (index) => {
+    setWeatherData((currentData) => currentData.filter((_, i) => i !== index));
   };
 
   return (
@@ -36,9 +42,11 @@ function App() {
             message={errorMessage}
             clearMessage={clearErrorMessage}
           />
-          <LocationBar>
-            <LocationCard />
-          </LocationBar>
+          <LocationBar
+            initialWeatherData={weatherData}
+            onItemRemove={removeWeatherDataItem}
+            onCardClick={console.log("Card clicked")}
+          />
           <Weather></Weather>
         </main>
       </div>

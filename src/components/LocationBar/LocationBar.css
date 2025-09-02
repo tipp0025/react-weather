@@ -1,0 +1,9 @@
+.location-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 1rem 1rem 1rem;
+  margin-top: 1rem;
+  row-gap: 2rem;
+}
