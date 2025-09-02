@@ -1,0 +1,25 @@
+#weather-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-med);
+  border-top: 0.1rem solid var(--secondary-light);
+}
+
+#weather-container h2 {
+  color: var(--secondary-light);
+}
+
+#weather-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: center;
+}
+
+#info-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

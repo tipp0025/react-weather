@@ -5,13 +5,13 @@ import Header from "./components/Header/Header";
 import SearchBar from "./components/SearchBar/SearchBar";
 import FeedbackBar from "./components/FeedbackBar/FeedbackBar";
 import LocationBar from "./components/LocationBar/LocationBar";
-import LocationCard from "./components/LocationCard/LocationCard";
 import Weather from "./components/Weather/Weather";
 
 function App() {
   const { theme, toggleTheme } = useTheme();
   const [errorMessage, setErrorMessage] = useState("");
   const [weatherData, setWeatherData] = useState([]);
+  const [selectedWeather, setSelectedWeather] = useState(null);
 
   const onSearch = (result) => {
     if (result.error) {
@@ -32,6 +32,10 @@ function App() {
     setWeatherData((currentData) => currentData.filter((_, i) => i !== index));
   };
 
+  const handleCardClick = (data) => {
+    setSelectedWeather(data);
+  };
+
   return (
     <>
       <div className="app-container">
@@ -45,9 +49,9 @@ function App() {
           <LocationBar
             initialWeatherData={weatherData}
             onItemRemove={removeWeatherDataItem}
-            onCardClick={console.log("Card clicked")}
+            onCardClick={handleCardClick}
           />
-          <Weather></Weather>
+          <Weather data={selectedWeather} />
         </main>
       </div>
     </>
