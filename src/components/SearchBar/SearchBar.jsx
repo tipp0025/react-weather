@@ -1,9 +1,59 @@
-function SearchBar() {
+const apiKey = import.meta.env.VITE_API_KEY;
+
+import { useState } from "react";
+import "./SearchBar.css";
+
+function SearchBar({ onSearch }) {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (!searchTerm.trim()) {
+      onSearch({ error: "Please enter a search term." });
+    } else {
+      try {
+        const response = await fetch(
+          `https://api.openweathermap.org/data/2.5/weather?q=${searchTerm}&appid=${apiKey}&units=metric`
+        );
+        if (!response.ok) {
+          if (response.status === 404) {
+            onSearch({
+              error: "Location not found. Please try another search.",
+            });
+          } else {
+            onSearch({ error: "An error occurred. Please try again later." });
+          }
+        } else {
+          const result = await response.json();
+          console.log("Search result:", result);
+          onSearch(result);
+        }
+      } catch (error) {
+        console.error("Failed to fetch data:", error);
+        onSearch({
+          error:
+            "Failed to fetch data. Please check your internet connection and try again.",
+        });
+      }
+    }
+  };
+
   return (
-    <div className="search-bar">
-      <input type="text" placeholder="Search for a location..." />
-      <button>Search</button>
-    </div>
+    <form id="searchForm" onSubmit={handleSubmit}>
+      <label htmlFor="searchInput">Location:</label>
+      <input
+        id="searchInput"
+        type="text"
+        placeholder="City, State, Country"
+        value={searchTerm}
+        onChange={handleChange}
+      />
+      <button type="submit">Search</button>
+    </form>
   );
 }
 

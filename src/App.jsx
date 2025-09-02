@@ -10,12 +10,23 @@ import Weather from "./components/Weather/Weather";
 function App() {
   const { theme, toggleTheme } = useTheme();
 
+  const onSearch = (result) => {
+    if (result.error) {
+      setErrorMessage(result.error);
+    } else if (weatherData.length >= 5) {
+      setErrorMessage("You cannot add more than five locations.");
+    } else {
+      setWeatherData([...weatherData, result]);
+      setErrorMessage("");
+    }
+  };
+
   return (
     <>
       <div className="app-container">
         <Header theme={theme} onToggleTheme={toggleTheme} />
         <main className="main">
-          <SearchBar />
+          <SearchBar onSearch={onSearch} />
           <FeedbackBar />
           <LocationBar>
             <LocationCard />
