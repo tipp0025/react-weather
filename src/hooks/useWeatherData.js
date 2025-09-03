@@ -21,10 +21,22 @@ export function useWeatherData() {
         setErrorMessage(`You cannot add more than ${MAX_ITEMS} locations.`);
         return;
       }
+
+      const isDuplicate = weatherData.some(
+        (item) =>
+          (item.id && result.id && item.id === result.id) ||
+          (item.name === result.name &&
+            item.sys?.country === result.sys?.country)
+      );
+      if (isDuplicate) {
+        setErrorMessage("That location is already in your list.");
+        return;
+      }
+
       setWeatherData((prev) => [...prev, result]);
       setErrorMessage("");
     },
-    [weatherData.length]
+    [weatherData]
   );
 
   const clearErrorMessage = useCallback(() => setErrorMessage(""), []);
@@ -32,6 +44,7 @@ export function useWeatherData() {
   const removeByIndex = useCallback(
     (index) => {
       setWeatherData((current) => current.filter((_, i) => i !== index));
+
       setSelectedWeather((currentSelected) =>
         currentSelected && weatherData[index] === currentSelected
           ? null
