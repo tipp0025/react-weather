@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import "./Weather.css";
 
 function Weather({ data }) {
-  if (!data) return <div></div>;
+  if (!data) return null;
   return (
     <div id="weather-container">
       <h2>Detailed Weather for {data.name}</h2>

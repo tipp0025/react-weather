@@ -1,10 +1,12 @@
 #weather-container {
+  margin-top: auto;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   background-color: var(--primary-med);
   border-top: 0.1rem solid var(--secondary-light);
+  padding: 1rem;
 }
 
 #weather-container h2 {
