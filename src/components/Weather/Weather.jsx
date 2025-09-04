@@ -3,26 +3,51 @@ import "./Weather.css";
 
 function Weather({ data }) {
   if (!data) return null;
+
+  const w = data.weather?.[0];
+  const description =
+    w?.description
+      ?.split(" ")
+      .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+      .join(" ") ?? "Weather";
+
   return (
-    <div id="weather-container">
-      <h2>Detailed Weather for {data.name}</h2>
+    <div
+      id="weather-container"
+      role="region"
+      aria-label={`Weather for ${data.name}`}
+    >
+      <h2 id="weather-title">
+        Detailed Weather for <span className="accent">{data.name}</span>
+      </h2>
+
       <div id="weather-info">
         <div id="info-left">
-          <img
-            src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
-            alt="Weather Icon"
-          />
-          <p>
-            {data.weather[0].description
-              .split(" ")
-              .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-              .join(" ")}
-          </p>
+          {w?.icon && (
+            <img
+              className="weather-icon"
+              src={`https://openweathermap.org/img/wn/${w.icon}@2x.png`}
+              alt={description}
+              width="100"
+              height="100"
+            />
+          )}
+          <p className="description">{description}</p>
         </div>
+
         <div id="info-right">
-          <p>Temperature: {data.main.temp} °C</p>
-          <p>Feels Like: {data.main.feels_like} °C</p>
-          <p>Wind: {data.wind.speed} m/s</p>
+          <div className="metric">
+            <span className="label">Temperature</span>
+            <span className="value">{Math.round(data.main.temp)} °C</span>
+          </div>
+          <div className="metric">
+            <span className="label">Feels Like</span>
+            <span className="value">{Math.round(data.main.feels_like)} °C</span>
+          </div>
+          <div className="metric">
+            <span className="label">Wind</span>
+            <span className="value">{Math.round(data.wind.speed)} m/s</span>
+          </div>
         </div>
       </div>
     </div>
