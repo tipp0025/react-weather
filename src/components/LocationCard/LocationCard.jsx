@@ -2,8 +2,22 @@ import PropTypes from "prop-types";
 import "./LocationCard.css";
 
 function LocationCard({ data, onRemove, onClick }) {
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      onClick();
+    }
+  };
+
   return (
-    <button className="location-card" onClick={onClick} type="button">
+    <div
+      className="location-card"
+      role="button"
+      tabIndex={0}
+      onClick={onClick}
+      onKeyDown={handleKeyDown}
+      aria-label={`${data?.name}, ${data?.sys?.country}`}
+    >
       <h2 className="card-title">{data?.name}</h2>
       <p className="card-subtitle">{data?.sys?.country}</p>
       <button
@@ -18,9 +32,10 @@ function LocationCard({ data, onRemove, onClick }) {
       >
         Remove
       </button>
-    </button>
+    </div>
   );
 }
+
 LocationCard.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string,

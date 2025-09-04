@@ -1,12 +1,9 @@
 .location-card {
-  /* Reset */
-  appearance: none;
   border: 1px solid var(--border);
   background: var(--surface-variant);
   color: var(--primary-fg);
   cursor: pointer;
 
-  /* Layout */
   display: inline-flex;
   flex-direction: column;
   align-items: center;
@@ -19,7 +16,6 @@
   border-radius: 0.75rem;
   text-align: center;
 
-  /* Animation */
   transition: transform 120ms ease, box-shadow 180ms ease,
     border-color 180ms ease, background-color 180ms ease;
 
