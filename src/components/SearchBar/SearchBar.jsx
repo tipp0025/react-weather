@@ -43,14 +43,17 @@ function SearchBar({ onSearch }) {
   };
 
   return (
-    <form id="searchForm" onSubmit={handleSubmit}>
+    <form id="searchForm" role="search" onSubmit={handleSubmit}>
       <label htmlFor="searchInput">Location:</label>
       <input
         id="searchInput"
+        name="q"
         type="text"
-        placeholder="City, State, Country"
+        placeholder="Search by City"
         value={searchTerm}
         onChange={handleChange}
+        autoComplete="off"
+        aria-label="Search by city"
       />
       <button type="submit">Search</button>
     </form>

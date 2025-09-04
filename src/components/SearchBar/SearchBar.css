@@ -1,42 +1,80 @@
 #searchForm {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  gap: 1rem;
+
   width: 100%;
-  gap: 1.5rem;
-  background-color: var(--primary-med);
-  padding: 1.5rem 0 1.5rem 0;
-  border-bottom: 0.1rem solid var(--secondary-light);
+  padding: 1rem 1.25rem;
+
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+#searchForm label {
+  color: var(--muted);
+  font-size: 0.95rem;
+  white-space: nowrap;
 }
 
 #searchForm input {
-  width: 50%;
-  background-color: var(--primary-dark);
-  padding: 0.5rem;
+  width: min(720px, 55%);
+  background-color: var(--input-bg);
+  color: var(--primary-fg);
+
+  padding: 0.6rem 0.75rem;
   font-size: 1rem;
-  border-radius: 0.25rem;
-  border: 0.05rem solid var(--secondary-light);
+  border: 1px solid var(--input-border);
+  border-radius: 0.5rem;
+
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+#searchForm input::placeholder {
+  color: color-mix(in oklab, var(--muted) 70%, transparent);
 }
 
 #searchForm input:focus {
-  border-color: var(--secondary-light);
-  border: 0.07rem solid var(--secondary-light);
   outline: none;
+  border-color: var(--brand-accent);
+  box-shadow: 0 0 0 3px
+    color-mix(in oklab, var(--brand-accent) 35%, transparent);
 }
 
 #searchForm button {
-  background-color: var(--primary-dark);
-  color: var(--secondary-light);
-  border: 0.05rem solid var(--secondary-light);
-  padding: 0.5rem 1rem;
+  background-color: var(--button-bg);
+  color: var(--button-fg);
+  border: 1px solid var(--button-border);
+
+  padding: 0.6rem 1rem;
   font-size: 1rem;
-  border-radius: 0.25rem;
+  border-radius: 0.5rem;
   cursor: pointer;
+
+  transition: background-color 0.2s, border-color 0.2s, transform 0.05s;
 }
 
 #searchForm button:hover {
-  background-color: var(--secondary-dark);
-  color: var(--primary-dark);
-  transition: ease-in 0.2s;
-  outline: none;
+  background-color: var(--button-hover-bg);
+  border-color: var(--button-border);
+}
+
+#searchForm button:active {
+  transform: translateY(1px);
+}
+
+@media (max-width: 640px) {
+  #searchForm {
+    flex-wrap: wrap;
+    gap: 0.75rem 0.75rem;
+    padding: 0.75rem 1rem;
+  }
+
+  #searchForm label {
+    width: 100%;
+  }
+
+  #searchForm input {
+    width: 100%;
+  }
 }
