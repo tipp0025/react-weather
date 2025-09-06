@@ -11,6 +11,20 @@ function Weather({ data }) {
       .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
       .join(" ") ?? "Weather";
 
+  const tz = Number.isFinite(data.timezone) ? data.timezone : 0; // seconds
+
+  const formatSunTime = (unixSeconds, offsetSeconds) => {
+    if (!unixSeconds) return "—";
+    // Convert to the location's local time by shifting and formatting in UTC.
+    const d = new Date((unixSeconds + offsetSeconds) * 1000);
+    return new Intl.DateTimeFormat(navigator.language, {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+      timeZone: "UTC",
+    }).format(d);
+  };
+
   return (
     <div
       id="weather-container"
@@ -47,6 +61,22 @@ function Weather({ data }) {
           <div className="metric">
             <span className="label">Wind</span>
             <span className="value">{Math.round(data.wind.speed)} m/s</span>
+          </div>
+          <div className="metric">
+            <span className="label">Humidity</span>
+            <span className="value">
+              {Math.round(data.main?.humidity ?? 0)}%
+            </span>
+          </div>
+          <div className="metric">
+            <span className="label">Sunrise</span>
+            <span className="value">
+              {formatSunTime(data.sys?.sunrise, tz)}
+            </span>
+          </div>
+          <div className="metric">
+            <span className="label">Sunset</span>
+            <span className="value">{formatSunTime(data.sys?.sunset, tz)}</span>
           </div>
         </div>
       </div>
