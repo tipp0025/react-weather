@@ -1,7 +1,12 @@
 import PropTypes from "prop-types";
 import "./LocationCard.css";
 
+const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
+
 function LocationCard({ data, onRemove, onClick }) {
+  const countryCode = data?.sys?.country;
+  const countryName = countryCode ? regionNames.of(countryCode) : "";
+
   const handleKeyDown = (e) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
@@ -19,7 +24,7 @@ function LocationCard({ data, onRemove, onClick }) {
       aria-label={`${data?.name}, ${data?.sys?.country}`}
     >
       <h2 className="card-title">{data?.name}</h2>
-      <p className="card-subtitle">{data?.sys?.country}</p>
+      <p className="card-subtitle">{countryName}</p>
       <button
         className="card-remove"
         type="button"
