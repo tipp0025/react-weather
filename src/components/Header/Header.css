@@ -15,17 +15,57 @@
 }
 
 .themeToggle {
-  border: 1px solid transparent;
-  background: transparent;
-  padding: 0.4rem 0.6rem;
-  font-size: 1rem;
-  line-height: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  width: 3rem;
+  height: 1.6rem;
+  border-radius: 1rem;
+
+  border: 1px solid var(--border);
+  background: var(--surface-variant);
   cursor: pointer;
-  color: var(--primary-fg);
+  padding: 0;
+  overflow: hidden;
+
+  transition: background-color 0.3s, border-color 0.3s;
 }
-.themeToggle:hover,
-.themeToggle:focus-visible {
+
+.themeToggle .icon {
+  position: absolute;
+  top: 50%;
+  left: 0.35rem;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  pointer-events: none;
+}
+
+.themeToggle .slider {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+
+  background: var(--brand-accent);
+  transition: transform 0.25s ease;
+}
+
+.themeToggle.is-dark {
+  background: var(--surface);
   border-color: var(--brand-accent);
-  outline: none;
-  border-radius: 0.5rem;
+}
+
+.themeToggle.is-dark .slider {
+  transform: translateX(1.35rem);
+}
+
+/* Accessibility */
+.themeToggle:focus-visible {
+  outline: 2px solid var(--brand-accent);
+  outline-offset: 2px;
 }

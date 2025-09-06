@@ -6,13 +6,15 @@ function Header({ theme, onToggleTheme }) {
     <header className="header">
       <h1 className="title">React Weather</h1>
       <button
-        className="themeToggle"
+        className={`themeToggle ${theme === "dark" ? "is-dark" : "is-light"}`}
         type="button"
+        role="switch"
+        aria-checked={theme === "dark"}
         onClick={onToggleTheme}
-        aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
         title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
       >
-        {theme === "dark" ? "Light" : "Dark"}
+        <span className="icon">{theme === "dark" ? "🌙" : "☀️"}</span>
+        <span className="slider" />
       </button>
     </header>
   );
