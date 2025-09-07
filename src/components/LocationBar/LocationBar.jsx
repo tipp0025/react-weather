@@ -10,16 +10,17 @@ function LocationBar({ initialWeatherData, onItemRemove, onCardClick }) {
   return (
     <div className="location-bar">
       {initialWeatherData && initialWeatherData.length > 0 ? (
-        initialWeatherData
-          .slice(0, 5)
-          .map((data, index) => (
+        <>
+          <h2 className="location-bar-title">My Locations</h2>
+          {initialWeatherData.slice(0, 5).map((data, index) => (
             <LocationCard
               key={index}
               data={data}
               onRemove={() => removeCard(index)}
               onClick={() => onCardClick(data)}
             />
-          ))
+          ))}
+        </>
       ) : (
         <p>Search for a location to add a city.</p>
       )}
