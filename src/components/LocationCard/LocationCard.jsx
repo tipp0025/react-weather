@@ -3,7 +3,7 @@ import "./LocationCard.css";
 
 const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
 
-function LocationCard({ data, onRemove, onClick }) {
+function LocationCard({ data, onRemove, onClick, isSelected = false }) {
   const countryCode = data?.sys?.country;
   const countryName = countryCode ? regionNames.of(countryCode) : "";
 
@@ -16,27 +16,35 @@ function LocationCard({ data, onRemove, onClick }) {
 
   return (
     <div
-      className="location-card"
+      className={`location-card compact${isSelected ? " is-selected" : ""}`}
       role="button"
       tabIndex={0}
       onClick={onClick}
       onKeyDown={handleKeyDown}
-      aria-label={`${data?.name}, ${data?.sys?.country}`}
+      aria-label={`${data?.name}, ${countryName}`}
+      title={`${data?.name}, ${countryName}`}
     >
-      <h2 className="card-title">{data?.name}</h2>
-      <p className="card-subtitle">{countryName}</p>
       <button
-        className="card-remove"
+        className="card-remove-icon"
         type="button"
+        aria-label={`Remove ${data?.name}`}
+        title="Remove"
         onClick={(e) => {
           e.stopPropagation();
           onRemove();
         }}
-        aria-label={`Remove ${data?.name}`}
-        title="Remove"
       >
-        Remove
+        ×
       </button>
+
+      <div className="card-main">
+        <h3 className="card-title" title={data?.name}>
+          {data?.name}
+        </h3>
+        <p className="card-subtitle" title={countryName}>
+          {countryName}
+        </p>
+      </div>
     </div>
   );
 }
@@ -50,6 +58,7 @@ LocationCard.propTypes = {
   }),
   onRemove: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
+  isSelected: PropTypes.bool,
 };
 
 export default LocationCard;

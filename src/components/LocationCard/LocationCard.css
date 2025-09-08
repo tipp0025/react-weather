@@ -1,20 +1,20 @@
 .location-card {
+  position: relative;
   border: 1px solid var(--border);
   background: var(--surface-variant);
   color: var(--primary-fg);
   cursor: pointer;
 
-  display: inline-flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.25rem;
-  width: 11rem;
-  min-height: 14rem;
-  padding: 0.75rem;
+
+  width: 16rem;
+  min-height: 5.25rem;
+  padding: 0.75rem 0.85rem;
 
   border-radius: 0.75rem;
-  text-align: center;
+  text-align: left;
 
   transition: transform 120ms ease, box-shadow 180ms ease,
     border-color 180ms ease, background-color 180ms ease;
@@ -22,58 +22,96 @@
   box-shadow: 0 1px 2px color-mix(in oklab, var(--primary-fg) 10%, transparent);
 }
 
-.location-card:hover {
-  transform: translateY(-1px);
-  border-color: var(--brand-accent);
-  box-shadow: 0 2px 8px
-      color-mix(in oklab, var(--brand-accent) 18%, transparent),
-    0 1px 2px color-mix(in oklab, var(--primary-fg) 12%, transparent);
+.location-card.compact .card-main {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 0.15rem;
 }
 
-.location-card:focus-visible {
-  outline: 3px solid color-mix(in oklab, var(--brand-accent) 45%, transparent);
-  outline-offset: 2px;
-  border-color: var(--brand-accent);
-}
-
-/* Titles */
 .card-title {
-  margin: 0.25rem 0 0;
-  font-size: 1.1rem;
-  text-decoration: underline;
-  text-underline-offset: 2px;
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 650;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-subtitle {
   margin: 0;
   color: var(--muted);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Remove Button */
-.card-remove {
-  background-color: var(--button-bg);
-  color: var(--button-fg);
+/* Hover / focus / selected */
+.location-card:hover {
+  transform: translateY(-1px);
+  border-color: var(--brand-accent);
+  box-shadow: 0 2px 8px
+      color-mix(in oklab, var(--brand-accent) 16%, transparent),
+    0 1px 2px color-mix(in oklab, var(--primary-fg) 12%, transparent);
+}
+
+.location-card:focus-visible {
+  outline: 3px solid color-mix(in oklab, var(--brand-accent) 40%, transparent);
+  outline-offset: 2px;
+  border-color: var(--brand-accent);
+}
+
+.location-card.is-selected {
+  border-color: var(--brand-accent);
+  box-shadow: 0 0 0 2px
+      color-mix(in oklab, var(--brand-accent) 22%, transparent),
+    0 1px 2px color-mix(in oklab, var(--primary-fg) 12%, transparent);
+}
+
+/* Remove icon button */
+.card-remove-icon {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 9999px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
   border: 1px solid var(--button-border);
-  padding: 0.4rem 0.8rem;
-  font-size: 0.95rem;
-  border-radius: 0.5rem;
+  background: var(--button-bg);
+  color: var(--button-fg);
   cursor: pointer;
+
   transition: background-color 0.2s, border-color 0.2s, transform 60ms;
+  line-height: 1;
+  font-size: 1rem;
 }
 
-.card-remove:hover {
+.card-remove-icon:hover {
   background-color: var(--button-hover-bg);
 }
 
-.card-remove:active {
+.card-remove-icon:active {
   transform: translateY(1px);
 }
 
-/* Reduce motion accessibility */
+@media (max-width: 720px) {
+  .location-card {
+    width: 100%;
+  }
+}
+
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .location-card,
-  .card-remove {
+  .card-remove-icon {
     transition: none;
   }
   .location-card:hover {
